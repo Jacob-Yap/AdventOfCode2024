@@ -26,5 +26,14 @@ def assess_report(report: list) -> str:
     # else, return safe.
     return('Safe')
 
-test_level = [4,3,4,5]
-print(assess_report(test_level))
+def assess_report_dampener(report: list) -> str:
+    for i in range(0,len(report)):
+        updated_report = report.copy()
+        updated_report.pop(i)
+        if assess_report(updated_report) == 'Safe':
+            return('Safe')
+    return('Unsafe, even with dampener')
+    
+
+test_level = [1, 2, 3, 4, 1, 2]
+print(assess_report_dampener(test_level))

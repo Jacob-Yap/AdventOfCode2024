@@ -26,10 +26,16 @@ def assess_report(report: list) -> str:
     # else, return safe.
     return('Safe')
     
+def assess_report_dampener(report: list) -> str:
+    for i in range(0,len(report)):
+        updated_report = report.copy()
+        updated_report.pop(i)
+        if assess_report(updated_report) == 'Safe':
+            return('Safe')
+    return('Unsafe, even with dampener')
     
-
-
 def main():
+    
     # read file
     f = open("levels.txt","r")
 
@@ -45,7 +51,12 @@ def main():
         list_reports.append(split_line)
     
     for report in list_reports:
-        list_safety.append(assess_report(report))
+        # if the first pass isn't Safe:
+        if assess_report(report) != 'Safe':
+            list_safety.append(assess_report_dampener(report))
+            
+        else:
+            list_safety.append(assess_report(report))
     
     print(list_safety.count("Safe"))
         
