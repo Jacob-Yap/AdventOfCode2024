@@ -60,7 +60,5 @@ def main():
     
     print(list_safety.count("Safe"))
         
-        
-        
 if __name__ == '__main__':
     main()
